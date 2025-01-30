@@ -4,7 +4,7 @@
 .open fittrackpro.db
 .mode column
 
-
+DROP TABLE IF EXISTS locations;
 
 CREATE TABLE locations (
     location_id INTEGER PRIMARY KEY, 
@@ -12,7 +12,7 @@ CREATE TABLE locations (
     address INTEGER,
     phone_number INTEGER,
     email INTEGER, 
-    opening_hours TEXT,
+    opening_hours TEXT
 );
 
 CREATE TABLE members (
@@ -35,7 +35,7 @@ CREATE TABLE staff (
     phone_number TEXT,
     position TEXT,	
     hire_date TEXT,	
-    location_id INTEGER,
+    location_id INTEGER REFERENCE
 );
 
 CREATE TABLE equipment (
@@ -45,7 +45,7 @@ CREATE TABLE equipment (
    purchase_date TEXT,
    last_maintenance_date TEXT,	
    next_maintenance_date TEXT,	
-   location_id INTEGER,
+   location_id INTEGER REFERENCE
 );
 
 CREATE TABLE classes (
@@ -54,76 +54,50 @@ CREATE TABLE classes (
     description TEXT,
     capacity TEXT,
     duration TEXT,
-    location_id PRIMARY KEY,
-);
-
-CREATE TABLE class_schedule (
-    schedule_id INTEGER PRIMARY KEY,
-    class_id TEXT, 
-    staff_id TEXT,
-    start_time TEXT,
-    end_time TEXT,
-);
-
-CREATE TABLE memberships (
-    membership_id INTEGER PRIMARY KEY,
-    member_id TEXT,	
-    type TEXT,	
-    start_date TEXT,
-    end_date TEXT,	
-    status TEXT,
-)
-
-CREATE TABLE attendance (
-    attendance_id INTEGER PRIMARY KEY,
-    member_id TEXT,
-    location_id TEXT, 
-    check_in_time TEXT,
-    check_out_time TEXT,
 );
 
 CREATE TABLE class_attendance (
     class_attendance_id	INTEGER PRIMARY KEY,
-    schedule_id	TEXT,
-    member_id TEXT,
-    attendance_status TEXT, 
+    schedule_id	TEXT, REFERENCE
+    member_id TEXT, REFERENCE
+    attendance_status TEXT 
 );
 
 CREATE TABLE payments (
     payment_id INTEGER PRIMARY KEY,
-    member_id TEXT,
+    member_id TEXT, REFERENCE
     amount TEXT,
     payment_date TEXT,	
     payment_method TEXT,
-    payment_type TEXT,
+    payment_type TEXT
 );
 
 CREATE TABLE personal_training_sessions (
     session_id INTEGER PRIMARY KEY,
-    member_id TEXT,
-    staff_id TEXT,
+    member_id TEXT, REFERENCE
+    staff_id TEXT, REFERENCE
     session_date TEXT,
     start_time TEXT,
     end_time TEXT,
-    notes TEXT,
+    notes TEXT
 );
 
 CREATE TABLE member_health_metrics (
     metric_id INTEGER PRIMARY KEY,
-    member_id TEXT,
+    member_id TEXT, REFERENCE
     measurement_date TEXT,
     weight TEXT,
     body_fat_percentage TEXT,
     muscle_mass TEXT,
-    bmi TEXT,
+    bmi TEXTn
 );
 
 CREATE TABLE equipment_maintenance_log (
-    log_id INTEGER PRIMARY KEY,
+    log_id INTEGER PRIMARY KEY AUTOINCREMENT, -- means you dont have to apply a value to the integer the database will do it 
     equipment_id TEXT,
     maintenance_date TEXT,
     description TEXT,
-    staff_id TEXT,
+    staff_id TEXT REFERENCE
 );
 
 
