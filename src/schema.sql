@@ -27,7 +27,7 @@ CREATE TABLE members (
     join_date DATE,
     emergency_contact_name TEXT,
     emergency_contact_phone TEXT
-);
+); 
    
    
 DROP TABLE IF EXISTS staff;
@@ -70,6 +70,7 @@ CREATE TABLE classes (
     location_id TEXT
 );
 
+
 DROP TABLE IF EXISTS class_attendance;
 
 CREATE TABLE class_attendance (
@@ -80,7 +81,6 @@ CREATE TABLE class_attendance (
     FOREIGN KEY (class_id) REFERENCES classes(class_id),  
     FOREIGN KEY (member_id) REFERENCES members(member_id)  
 );
-
 
 
 DROP TABLE IF EXISTS payments;
@@ -97,7 +97,6 @@ CREATE TABLE payments (
 );    
 
 
-
 DROP TABLE IF EXISTS personal_training_sessions;
 
 CREATE TABLE personal_training_sessions (
@@ -111,7 +110,6 @@ CREATE TABLE personal_training_sessions (
     FOREIGN KEY (member_id) REFERENCES members(member_id), 
     FOREIGN KEY (staff_id) REFERENCES staff(staff_id) 
 );
-
 
 
 DROP TABLE IF EXISTS member_health_metrics;
@@ -131,7 +129,7 @@ CREATE TABLE member_health_metrics (
 DROP TABLE IF EXISTS equipment_maintenance_log;
 
 CREATE TABLE equipment_maintenance_log (
-    log_id INTEGER PRIMARY KEY AUTOINCREMENT, -- means you dont have to apply a value to the integer the database will do it 
+    log_id INTEGER PRIMARY KEY AUTOINCREMENT, 
     equipment_id INTEGER,
     maintenance_date DATE,
     description TEXT,
@@ -140,13 +138,4 @@ CREATE TABLE equipment_maintenance_log (
     FOREIGN KEY (staff_id) REFERENCES staff (staff_id)
 );
 
-
-
-
-
-
-
-
-
--- After creating the tables, you can import the sample data using:
 -- `.read data/sample_data.sql` in a sql file or `npm run import` in the terminal
