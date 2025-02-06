@@ -3,6 +3,8 @@
 .open fittrackpro.db
 .mode column
 
+PRAGMA foreign_keys = ON;
+
 DROP TABLE IF EXISTS locations;
 
 CREATE TABLE locations (
@@ -70,15 +72,43 @@ CREATE TABLE classes (
     location_id TEXT
 );
 
+CREATE TABLE class_schedule(   
+    schedule_id INTEGER PRIMARY KEY,
+    class_id INTEGER,
+    staff_id INTEGER,
+    start_time DATETIME,
+    end_time DATETIME,
+    FOREIGN KEY (class_id) REFERENCES classes(class_id),   
+    FOREIGN KEY (staff_id) REFERENCES staff(staff_id) 
+);
 
-DROP TABLE IF EXISTS class_attendance;
+CREATE TABLE memberships(
+    membership_id INTEGER PRIMARY KEY,
+    member_id INTEGER,
+    type TEXT,
+    start_date DATETIME,
+    end_date DATETIME,	
+    status TEXT,
+    FOREIGN KEY (member_id) REFERENCES members(member_id)
+);
+
+CREATE TABLE attendance(
+    attendance_id INTEGER PRIMARY KEY,  
+    member_id INTEGER,                  
+    location_id INTEGER,                
+    check_in_time DATETIME,              
+    check_out_time DATETIME,             
+    FOREIGN KEY (member_id) REFERENCES members(member_id),  
+    FOREIGN KEY (location_id) REFERENCES locations(location_id)  
+);
+
 
 CREATE TABLE class_attendance (
     class_attendance_id INTEGER PRIMARY KEY,
-    class_id INTEGER,  
+    schedule_id INTEGER,  
     member_id INTEGER,  
     attendance_status TEXT,
-    FOREIGN KEY (class_id) REFERENCES classes(class_id),  
+    FOREIGN KEY (schedule_id) REFERENCES class_schedule(schedule_id),  
     FOREIGN KEY (member_id) REFERENCES members(member_id)  
 );
 
