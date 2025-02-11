@@ -103,6 +103,9 @@ CREATE TABLE attendance(
 );
 
 
+DROP TABLE IF EXISTS class_attendance; --ensures the table is deleted before recreating it 
+
+
 CREATE TABLE class_attendance (
     class_attendance_id INTEGER PRIMARY KEY,
     schedule_id INTEGER,  

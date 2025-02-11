@@ -10,27 +10,8 @@ PRAGMA foreign_keys = ON;
 
 -- 1. Record a member's gym visit
 -- TODO: Write a query to record a member's gym visit
-CREATE TABLE MEMBERS (
-    member_id INTEGER PRIMARY KEY AUTOINCREMENT,  
-    first_name TEXT,
-    last_name TEXT,
-    email TEXT,  
-    phone_number TEXT,
-    date_of_birth DATE,
-    join_date DATE,
-    emergency_contact_name TEXT,
-    emergency_contact_phone TEXT
-);
 
-CREATE TABLE gym_visits (
-    visit_id INTEGER PRIMARY KEY AUTOINCREMENT,  
-    member_id INTEGER NOT NULL,                   
-    check_in_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  
-    check_out_time TIMESTAMP NULL,                
-    FOREIGN KEY (member_id) REFERENCES members(member_id) 
-);
-
-INSERT INTO gym_visits (member_id, check_in_time)
+INSERT INTO x  (member_id, check_in_time)
 VALUES (123, CURRENT_TIMESTAMP);
 
 
