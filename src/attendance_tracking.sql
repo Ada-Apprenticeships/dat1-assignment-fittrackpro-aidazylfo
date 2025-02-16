@@ -3,51 +3,40 @@
 .mode column
 
 -- Enable foreign key support
-
 PRAGMA foreign_keys = ON;
 
 -- Attendance Tracking Queries
-
 -- 1. Record a member's gym visit
 -- TODO: Write a query to record a member's gym visit
-
-INSERT INTO x  (member_id, check_in_time)
-VALUES (123, CURRENT_TIMESTAMP);
-
+INSERT INTO attendance (member_id, location_id, check_in_time)
+VALUES (7, 1, CURRENT_TIMESTAMP);
 
 -- 2. Retrieve a member's attendance history
 -- TODO: Write a query to retrieve a member's attendance history
-
-SELECT visit_id, member_id, check_in_time, check_out_time -- This extracts the day of the week from check_in_time and then returns a number which represents a day for example 0 for Sunday, 1 for Monday.
-FROM gym_visits
-WHERE member_id = 123
+SELECT DATE(check_in_time) AS visit_date, check_in_time, check_out_time
+FROM attendance
+WHERE member_id = 5
 ORDER BY check_in_time DESC;
-
 
 -- 3. Find the busiest day of the week based on gym visits
 -- TODO: Write a query to find the busiest day of the week based on gym visits
-
 SELECT strftime('%w', check_in_time) AS day_of_week, COUNT(*) AS visit_count
-FROM gym_visits
+FROM attendance
 GROUP BY day_of_week
 ORDER BY visit_count DESC
 LIMIT 1;
 
 -- 4. Calculate the average daily attendance for each location
 -- TODO: Write a query to calculate the average daily attendance for each location
-
-CREATE TABLE locations (
-    location_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    location_name TEXT
-);
-
-SELECT location_id, 
+SELECT l.location_name, 
        AVG(daily_visits) AS avg_daily_attendance
 FROM (
     SELECT location_id, 
            DATE(check_in_time) AS visit_date, 
            COUNT(*) AS daily_visits
-    FROM gym_visits
+    FROM attendance
     GROUP BY location_id, visit_date
 ) AS daily_data
-GROUP BY location_id;
+JOIN locations l ON daily_data.location_id = l.location_id
+GROUP BY l.location_name;
+
