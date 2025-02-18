@@ -14,9 +14,9 @@ JOIN instructors USING (instructor_id);
 
 -- 2. Find available classes for a specific date
 -- TODO: Write a query to find available classes for a specific date
-SELECT class_id, name, start_time, end_time, available_spots
+SELECT class_id, name, capacity
 FROM classes
-WHERE class_date = '2025-02-01'
+WHERE name = '2025-02-01'
 AND available_spots > 0;
 
 -- 3. Register a member for a class
