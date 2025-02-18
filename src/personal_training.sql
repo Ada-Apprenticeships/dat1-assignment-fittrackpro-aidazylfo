@@ -15,6 +15,6 @@ SELECT pt.session_id,
        pt.start_time, 
        pt.end_time
 FROM personal_training_sessions pt
-JOIN trainers t ON pt.trainer_id = t.trainer_id
+JOIN staff s ON pt.staff_id = s.staff_id  -- Corrected to use staff_id
 JOIN members m ON pt.member_id = m.member_id
-WHERE t.first_name = 'Ivy' AND t.last_name = 'Irwin';
+WHERE s.first_name = 'Ivy' AND s.last_name = 'Irwin';
