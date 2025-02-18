@@ -28,7 +28,7 @@ LIMIT 1;
 
 -- 4. Calculate the average daily attendance for each location
 -- TODO: Write a query to calculate the average daily attendance for each location
-SELECT l.location_name, 
+SELECT l.name AS location_name, 
        AVG(daily_visits) AS avg_daily_attendance
 FROM (
     SELECT location_id, 
@@ -38,5 +38,4 @@ FROM (
     GROUP BY location_id, visit_date
 ) AS daily_data
 JOIN locations l ON daily_data.location_id = l.location_id
-GROUP BY l.location_name;
-
+GROUP BY l.name;
