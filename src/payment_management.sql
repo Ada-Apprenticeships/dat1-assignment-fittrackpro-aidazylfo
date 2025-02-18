@@ -2,7 +2,7 @@
 .open fittrackpro.db
 .mode column
 
--- Enable foreign key support
+-- Enable foreign key supports
 PRAGMA foreign_keys = ON;
 
 -- Payment Management Queries
