@@ -144,7 +144,6 @@ CREATE TABLE personal_training_sessions (
     FOREIGN KEY (staff_id) REFERENCES staff(staff_id) 
 );
 
-
 DROP TABLE IF EXISTS member_health_metrics;
 
 CREATE TABLE member_health_metrics (
