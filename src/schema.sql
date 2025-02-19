@@ -5,7 +5,7 @@
 
 PRAGMA foreign_keys = ON;
 
-DROP TABLE IF EXISTS locations;
+DROP TABLE IF EXISTS locations; -- ensures the table is deleted before recreating it 
 
 CREATE TABLE locations (
     location_id INTEGER PRIMARY KEY, 
@@ -72,6 +72,9 @@ CREATE TABLE classes (
     location_id TEXT
 );
 
+
+DROP TABLE IF EXISTS class_schedule;
+
 CREATE TABLE class_schedule(   
     schedule_id INTEGER PRIMARY KEY,
     class_id INTEGER,
@@ -82,6 +85,9 @@ CREATE TABLE class_schedule(
     FOREIGN KEY (staff_id) REFERENCES staff(staff_id) 
 );
 
+
+DROP TABLE IF EXISTS memberships; 
+
 CREATE TABLE memberships(
     membership_id INTEGER PRIMARY KEY,
     member_id INTEGER,
@@ -91,6 +97,9 @@ CREATE TABLE memberships(
     status TEXT,
     FOREIGN KEY (member_id) REFERENCES members(member_id)
 );
+
+
+DROP TABLE IF EXISTS attendance;
 
 CREATE TABLE attendance(
     attendance_id INTEGER PRIMARY KEY,  
@@ -103,8 +112,7 @@ CREATE TABLE attendance(
 );
 
 
-DROP TABLE IF EXISTS class_attendance; --ensures the table is deleted before recreating it 
-
+DROP TABLE IF EXISTS class_attendance; 
 
 CREATE TABLE class_attendance (
     class_attendance_id INTEGER PRIMARY KEY,
@@ -126,7 +134,6 @@ CREATE TABLE payments (
     payment_method TEXT,
     payment_type TEXT,
     FOREIGN KEY (member_id) REFERENCES members(member_id)  
-
 );    
 
 
@@ -169,5 +176,3 @@ CREATE TABLE equipment_maintenance_log (
     FOREIGN KEY (equipment_id) REFERENCES equipment (equipment_id),
     FOREIGN KEY (staff_id) REFERENCES staff (staff_id)
 );
-
--- `.read data/sample_data.sql` in a sql file or `npm run import` in the terminal
