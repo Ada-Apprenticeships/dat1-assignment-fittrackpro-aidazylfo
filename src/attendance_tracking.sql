@@ -20,7 +20,7 @@ ORDER BY check_in_time DESC;
 
 -- 3. Find the busiest day of the week based on gym visits
 -- TODO: Write a query to find the busiest day of the week based on gym visits
-SELECT strftime('%w', check_in_time) AS day_of_week, COUNT(*) AS visit_count
+SELECT strftime('%w', check_in_time) AS day_of_week, COUNT(*) AS visit_count -- strftime function selects the day of week from check in time
 FROM attendance
 GROUP BY day_of_week
 ORDER BY visit_count DESC
@@ -29,7 +29,7 @@ LIMIT 1;
 -- 4. Calculate the average daily attendance for each location
 -- TODO: Write a query to calculate the average daily attendance for each location
 SELECT l.name AS location_name, 
-       AVG(daily_visits) AS avg_daily_attendance
+       AVG(daily_visits) AS avg_daily_attendance -- It selects name of each location and calculates the avregae number of daily visits for each location 
 FROM (
     SELECT location_id, 
            DATE(check_in_time) AS visit_date, 
@@ -37,5 +37,5 @@ FROM (
     FROM attendance
     GROUP BY location_id, visit_date
 ) AS daily_data
-JOIN locations l ON daily_data.location_id = l.location_id
+JOIN locations l ON daily_data.location_id = l.location_id --joins daily data subquery with locations table to access name of the location for each record 
 GROUP BY l.name;
